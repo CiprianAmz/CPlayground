@@ -86,8 +86,6 @@ void print_diagonal_from_second_half(SquareMatrix matrix, int diagonal_number, e
 }
 
 void parse_diagonaly(SquareMatrix matrix, int diagonal_number, enum Direction direction) {
-    int i = 0;
-
     if (diagonal_number < matrix.size) {
         print_diagonal_from_first_half(matrix, diagonal_number, direction);
     }
