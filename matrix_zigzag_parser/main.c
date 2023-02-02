@@ -35,14 +35,16 @@ SquareMatrix read_input(char file_name[]) {
 }
 
 void free_matrix_memory(SquareMatrix matrix) {
-    for(int i = 0; i < matrix.size; i++) {
+    int i = 0;
+
+    for(i = 0; i < matrix.size; i++) {
         free(matrix.elements[i]); 
     }
     free(matrix.elements);
 }
 
 void print_element(SquareMatrix matrix, int row, int column, enum Direction direction) {
-    if (direction = DOWN) {
+    if (direction == DOWN) {
         printf("%d ", matrix.elements[row][column]);
     }
     else {
