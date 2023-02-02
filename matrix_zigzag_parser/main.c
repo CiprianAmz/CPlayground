@@ -15,17 +15,18 @@ typedef struct {
 SquareMatrix read_input(char file_name[]) {
     SquareMatrix result = {};
     int i = 0;
+    int j = 0;
     FILE* file = NULL;
 
     file = fopen (file_name, "r");
     assert(file != NULL);
     fscanf (file, "%d", &result.size);
     result.elements = (int**) malloc(result.size * sizeof(int*));
-    for(int i = 0; i < result.size; i++) {
+    for(i = 0; i < result.size; i++) {
         result.elements[i] = (int*) malloc(result.size * sizeof(int));
 
         // reading elements for current collumn
-        for(int j = 0; j < result.size; j++) {
+        for(j = 0; j < result.size; j++) {
             fscanf(file, "%d", &result.elements[i][j]);
         }
     }
