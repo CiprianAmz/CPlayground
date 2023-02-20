@@ -13,7 +13,7 @@ typedef struct {
 typedef struct {
     Competence competence;
     int planned_days;
-    char name[40];
+    char name[50];
 } Task;
 
 typedef struct TaskNodeList {
@@ -60,6 +60,16 @@ void add_to_task_list(TaskNodeList** head, Task* task) {
     it->next->next = NULL;
 }
 
+void print_task(Task task) {
+    printf(
+        "  %s {c: %d, python: %d, estimated_time: %d}\n",
+        task.name,
+        task.competence.c * 10,
+        task.competence.python * 10,
+        task.planned_days
+    );
+}
+
 void print_allocation(DevAllocation devs[], int n_devs) {
     int dev_it;
 
@@ -77,13 +87,7 @@ void print_allocation(DevAllocation devs[], int n_devs) {
         printf("Tasks:\n");
         
         while(tasks_it) {
-            printf(
-                "  %s {c: %d, python: %d, estimated_time: %d}\n",
-                tasks_it->task->name,
-                tasks_it->task->competence.c * 10,
-                tasks_it->task->competence.python * 10,
-                tasks_it->task->planned_days
-            );
+            print_task(*(tasks_it->task));
             tasks_it = tasks_it->next;
         }
 
@@ -132,6 +136,8 @@ void solve(DevAllocation devs[], size_t devs_n, Task tasks[], size_t tasks_n) {
         if (!dev_ptr) {
             printf("Sprint can't be completed!\nCurrent allocation:\n");
             print_allocation(devs, devs_n);
+            printf("Remaining task:");
+            print_task(tasks[task_it]);
             return;
         }
 
@@ -158,12 +164,13 @@ void solve_task_1() {
     */
     Task tasks[] = {
     /* {c, python}, planned_days, name */
-        { {10, 0},  10, "Write an ADC driver"               },
-        { {4 , 6},  5 , "Create tests for Clock driver"     },
-        { {8 , 2},  10, "Create new demo application"       },
-        { {1 , 9},  2 , "Fix bug found by customer"         },
-        { {5 , 5},  7 , "Analyze feature request"           },
-        { {9 , 1},  10, "Implement new partitioning schema" }
+        { {10, 0 },  10, "Write an ADC driver"                             },
+        { {4 , 6 },  5 , "Create tests for Clock driver"                   },
+        { {0 , 10},  10, "Update test infrastructure for multiple devices" },
+        { {8 , 2 },  10, "Create new demo application"                     },
+        { {1 , 9 },  2 , "Fix bug found by customer"                       },
+        { {5 , 5 },  7 , "Analyze feature request"                         },
+        { {9 , 1 },  10, "Implement new partitioning schema"               }
     };
 
     solve(
@@ -189,12 +196,13 @@ void solve_task_2() {
     */
     Task tasks[] = {
     /* {c, python}, planned_days, name */
-        { {10, 0},  10, "Write an ADC driver"               },
-        { {4 , 6},  5 , "Create tests for Clock driver"     },
-        { {8 , 2},  10, "Create new demo application"       },
-        { {1 , 9},  2 , "Fix bug found by customer"         },
-        { {5 , 5},  7 , "Analyze feature request"           },
-        { {9 , 1},  10, "Implement new partitioning schema" }
+        { {10, 0 },  10, "Write an ADC driver"                             },
+        { {4 , 6 },  5 , "Create tests for Clock driver"                   },
+        { {0 , 10},  10, "Update test infrastructure for multiple devices" },
+        { {8 , 2 },  10, "Create new demo application"                     },
+        { {1 , 9 },  2 , "Fix bug found by customer"                       },
+        { {5 , 5 },  7 , "Analyze feature request"                         },
+        { {9 , 1 },  10, "Implement new partitioning schema"               }
     };
 
     solve(
